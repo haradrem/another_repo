@@ -1,29 +1,13 @@
-<!DOCTYPE html>
-<html lang="ru">
+{% extends 'blog/base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Охуенный бля блог</title>
-</head>
-
-<body>
-        <div>
-            <h1><a href="/">Охуенный бля блог</a></h1>
+{% block content %}
+{% for post in posts %}
+    <div class="post">
+        <div class="date">
+            <p>Опубликовано: {{ post.published_date }}</p>
         </div>
-
-    {% for post in posts %}
-        <div>
-            <p>published: {{ post.published_date }}</p>
-            <h2><a href="">{{ post.title }}</a></h2>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
-
-        <div>
-            <p>запилено: 31.10.2018, 14:40</p>
-            <h2><a href="">Чуть менеее охуенный бля пост</a></h2>
-            <p>Потс зохвачен</p>
-        </div>
-</body>
-
-</html>
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+{% endfor %}
+{% endblock %}
